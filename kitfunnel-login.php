@@ -3,7 +3,7 @@
 Plugin Name: KitFunnel Login
 Plugin URI: https://kitfunnel.com
 Description: Personalización CN
-Version: 1.1.10
+Version: 1.1.11
 Author: KitFunnel
 License: GPL 2+
 License URI: https://kitfunnel.com */ 
@@ -40,7 +40,7 @@ class KitFunnelLogin {
 
 
 
-add_action('login_enqueue_scripts','bs_custom_login_styles');function bs_custom_login_styles(){$css_version='1.7';$css_url=add_query_arg('v',$css_version,plugins_url('/css/styles-login.css',__FILE__));wp_enqueue_style('custom-login-styles',$css_url);}function my_login_logo(){$logo_url='/wp-content/plugins/kitfunnel-login/img/3d-login.png';echo'<style type="text/css"> .login h1 a { background-image: url('.$logo_url.') !important; } </style>';}add_action('login_enqueue_scripts','my_login_logo');add_filter('login_headerurl','bs_custom_login_logo_link');function bs_custom_login_logo_link($url){return '/cn/account/?display=inicio';}function custom_login_redirect($redirect,$user){if(isset($user->roles)&&is_array($user->roles)){if(in_array('administrator',$user->roles)){return admin_url();}elseif(in_array('subscriber',$user->roles)){return home_url('/cn/account/?display=inicio');}}return home_url('/cn/account/?display=inicio');}add_filter('login_redirect','custom_login_redirect',10,2);function css_kitfunnel_admin(){ ?><style>#adminmenu #menu-posts{display:block!important}</style><?php }add_action('admin_head','css_kitfunnel_admin');;
+add_action('login_enqueue_scripts','bs_custom_login_styles');function bs_custom_login_styles(){$css_version='1.7';$css_url=add_query_arg('v',$css_version,plugins_url('/css/styles-login.css',__FILE__));wp_enqueue_style('custom-login-styles',$css_url);}function my_login_logo(){$logo_url='/wp-content/plugins/kitfunnel-login/img/3d-login.png';echo'<style type="text/css"> .login h1 a { background-image: url('.$logo_url.') !important; } </style>';}add_action('login_enqueue_scripts','my_login_logo');add_filter('login_headerurl','bs_custom_login_logo_link');function bs_custom_login_logo_link($url){return '/cn/account/?display=inicio';}function custom_login_redirect($redirect,$user){if(isset($user->roles)&&is_array($user->roles)){if(in_array('administrator',$user->roles)){return admin_url();}elseif(in_array('subscriber',$user->roles)){return home_url('/cn/account/?display=inicio');}}return home_url('/cn/account/?display=inicio');}add_filter('login_redirect','custom_login_redirect',10,2);function personalizar_email_restablecimiento($message,$key,$user_login,$user_data){$network_name=get_network()->site_name;$reset_link=network_site_url("wp-login.php?action=rp&key=$key&login=".rawurlencode($user_login),'login');$message="Alguien ha solicitado restablecer tu contraseña en ".$network_name.".\n\n";$message.="Restablece la contraseña de tu cuenta desde el siguiente enlace:\n";$message.=$reset_link."\n\n";$message.="Si no has solicitado el restablecimiento de tu contraseña, simplemente ignora este correo electrónico y no pasará nada.\n\n";$message.="Gracias,\n";$message.="El equipo de ".$network_name.".\n";return $message;}add_filter('retrieve_password_message','personalizar_email_restablecimiento',10,4);function personalizar_asunto_email_restablecimiento(){$network_name=get_network()->site_name;$asunto_correo="Restablece tu contraseña en [".$network_name."]";return $asunto_correo;}add_filter('retrieve_password_title','personalizar_asunto_email_restablecimiento');function css_kitfunnel_admin(){ ?><style>#adminmenu #menu-posts{display:block!important}</style><?php }add_action('admin_head','css_kitfunnel_admin');;
 
 
 
