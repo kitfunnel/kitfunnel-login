@@ -3,7 +3,7 @@
 Plugin Name: KitFunnel Login
 Plugin URI: https://kitfunnel.com
 Description: Personalización CN
-Version: 1.1.11
+Version: 1.1.12
 Author: KitFunnel
 License: GPL 2+
 License URI: https://kitfunnel.com */ 
